@@ -1,17 +1,29 @@
 const express = require('express');
 const fs = require('fs');
-const { parse } = require('path');
+const morgan = require('morgan');
 
 const app = express();
+
+app.use(morgan('dev'));
 app.use(express.json());
+
+// Custom Middleware
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
+// Port
 const port = 80;
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
 // Get Tours
 const getTours = (req, res) => { 
+  console.log(req.requestTime);
+
   res.status(200).json({ 
-    status: 'success', results: tours.length, data: { tours } 
+    status: 'success', requestedAt: req.requestTime, results: tours.length, data: { tours } 
   });
 }
 
