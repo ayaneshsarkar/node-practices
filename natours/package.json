@@ -2,9 +2,9 @@
   "name": "natours",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "serve": "nodemon app.js"
+    "serve": "nodemon server.js"
   },
   "author": "Ayanesh Sarkar",
   "license": "MIT",

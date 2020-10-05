@@ -23,6 +23,5 @@ app.use('/api/v1/users', usersRouter);
 // Home
 app.get('/', (req, res) => res.status(200).json({ message: 'OK' }));
 
-// Start Server
-const port = 80;
-app.listen(port, () => console.log(`Listening on ${port}.`));
+module.exports = app;
+
