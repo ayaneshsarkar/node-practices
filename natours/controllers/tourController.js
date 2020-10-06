@@ -3,11 +3,21 @@ const fs = require('fs');
 // All Tours JSON
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
 
+// Check Id Middleware
 exports.checkId = (req, res, next, val) => {
   console.log(`The tour is ${val}`);
 
   const tour = tours.find(el => el.id === parseInt(req.params.id));
   if(!tour) res.status(404).json({ status: 'fail', message: 'Invalid Id!' });
+
+  next();
+}
+
+// Check Name and Price Middleware
+exports.checkBody = (req, res, next) => {
+  if(!req.body.name || !req.body.price) {
+    return res.status(400).json({ status: 'fail', message: 'Missing name or price.' });
+  }
 
   next();
 }
